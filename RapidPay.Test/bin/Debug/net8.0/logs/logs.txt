@@ -1,1 +1,0 @@
-6/7/2024 5:59:23 PM: Card creation process failed for: 'Card number must be 15 digits.'.
