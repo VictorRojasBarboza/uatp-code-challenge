@@ -47,7 +47,7 @@
 
 **Project architecture**
 
-**The solution is divided into 4 projects which have the following functionalities**
+**The solution is divided into 5 projects which have the following functionalities**
 
 	1. **RapidPay.API**: This directory contains the API project. The API project is responsible for exposing endpoints that can be consumed by clients (e.g., web, mobile apps). It acts as the entry point for the application, handling HTTP requests, routing, and returning responses.
 	2. **RapidPay.Service**: This directory contains the Service project. The Service layer handles the business logic of the application. It processes data received from the API and interacts with the Data Access Layer to perform CRUD and custom operations.
