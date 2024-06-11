@@ -10,8 +10,9 @@
 
     1. Clone the project from the repository
     2. Download and install NuGet package library dependencies for each project (API, Service, DAL)
-    3. Project API: Modify the connection string in appsettings and secret keys to reflect the server, username and password values ​​established in the prerequisites
-    4. DAL Project:
+    3. Open a terminal at folder solution root path, and run following command : dotnet tool install --global dotnet-ef
+    4. Project API: Modify the connection string in appsettings and secret keys to reflect the server, username and password values ​​established in the prerequisites
+    5. DAL Project:
         a. Open a power shell terminal in the example project path ./RapidPay.DAL/
         b. Delete "Migrations" folder from project's root path
         c. Run following commands:
@@ -20,17 +21,18 @@
         d. The above commands will create the following changes:
             i. A new "Migrations" folder will be created with its corresponding files
             ii. RapidPay database will be created in SQL with the respective tables
-    5. Set Startup Project to RapidPay.API and run it, the project is configured to create both test users and their respective roles when running for the first time
-    6. Test users:
+    6. Set Startup Project to RapidPay.API and run it, the project is configured to create both test users and their respective roles when running for the first time
+    7. Test users:
         a. User: admin | Password: Admin@1234 |Assigned Role: "Admin"
         b. User: testuser | Password: Password123! |Assigned Role: "User"
 		
 **Steps to run the project (Non-Windows users) unsing VS Code**
 
-	1. Clone the project from the repository
-	2. Open a terminal in each project root path and run the following command "dotnet restore". This command will restore the dependencies and tools of a project.
-	3. Project API: Modify the connection string in appsettings and secret keys to reflect the server, username and password values ​​established in the prerequisites
-	4. DAL Project:
+   1. Clone the project from the repository
+   2. Open a terminal in each project root path and run the following command "dotnet restore". This command will restore the dependencies and tools of a project.
+   3. Open a terminal at folder solution root path, and run following command : dotnet tool install --global dotnet-ef
+   4. Project API: Modify the connection string in appsettings and secret keys to reflect the server, username and password values ​​established in the prerequisites
+   5. DAL Project:
         a. Open a power shell terminal in the example project path ./RapidPay.DAL/
         b. Delete "Migrations" folder from project's root path
         c. Run following commands:
@@ -39,8 +41,8 @@
         d. The above commands will create the following changes:
             i. A new "Migrations" folder will be created with its corresponding files
             ii. RapidPay database will be created in SQL with the respective tables
-    5. Open a new terminal on RapidPay.API path and run following command "dotnet run", the project is configured to create both test users and their respective roles when running for the first time.
-    6. Test users:
+    6. Open a new terminal on RapidPay.API path and run following command "dotnet run", the project is configured to create both test users and their respective roles when running for the first time.
+    7. Test users:
 		a. User: admin | Password: Admin@1234 |Assigned Role: "Admin"
 		b. User: testuser | Password: Password123! |Assigned Role: "User"
 
