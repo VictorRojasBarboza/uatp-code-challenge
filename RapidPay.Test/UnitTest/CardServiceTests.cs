@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using RapidPay.DAL;
+using RapidPay.DAL.Models;
 using RapidPay.Service.DTO;
 using RapidPay.Service.Services.Card;
 using RapidPay.Shared.Utils;
@@ -25,15 +27,29 @@ namespace RapidPay.Test.UnitTest
             // Create a mock or a real instance of Mapper
             var mapper = Substitute.For<IMapper>();
 
-            // Creating a substitute instance for FileLogger
-            var logger = Substitute.For<FileLogger>(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt")); 
+            // Mock the mapping from Card to CreateCardResponse
+            mapper.Map<DAL.Models.Card>(Arg.Any<Card>()).Returns(args =>
+            {
+                var card = args.Arg<Card>();
+                return new DAL.Models.Card { CardNumber = card.CardNumber, Balance = card.Balance };
+            });
 
-            var cardService = new CardService(context, logger, mapper);
+            mapper.Map<Service.DTO.CreateCardResponse>(Arg.Any<DAL.Models.Card>()).Returns(args =>
+            {
+                var cardDto = args.Arg<DAL.Models.Card>();
+                return new Service.DTO.CreateCardResponse { CardNumber = cardDto.CardNumber, Balance = cardDto.Balance };
+            });
+
+            // Creating a substitute instance for FileLogger and Cache
+            var logger = Substitute.For<FileLogger>(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt"));
+            var cache = new MemoryCache(new MemoryCacheOptions());
+
+            var cardService = new CardService(context, logger, mapper,cache);
 
             var request = new Service.DTO.CreateCardRequest { CardNumber = "123456789012347", Balance = Convert.ToDecimal(1200.90) };
            
             // Act
-            CreateCardResponse result = await cardService.CreateCardAsync(request);
+            var result = await cardService.CreateCardAsync(request);
 
             // Assert
             Assert.NotNull(result);
@@ -50,13 +66,29 @@ namespace RapidPay.Test.UnitTest
 
             using var context = new ContextDB(options);//Creating a context with InMemory DB
 
-            // Create a mock or a real instance of FileLogger
+            // Create a mock or a real instance of Mapper
             var mapper = Substitute.For<IMapper>();
+
+            // Mock the mapping from Card to CreateCardResponse
+            mapper.Map<DAL.Models.Card>(Arg.Any<Card>()).Returns(args =>
+            {
+                var card = args.Arg<Card>();
+                return new DAL.Models.Card { CardNumber = card.CardNumber, Balance = card.Balance };
+            });
+
+            mapper.Map<Service.DTO.CreateCardResponse>(Arg.Any<DAL.Models.Card>()).Returns(args =>
+            {
+                var cardDto = args.Arg<DAL.Models.Card>();
+                return new Service.DTO.CreateCardResponse { CardNumber = cardDto.CardNumber, Balance = cardDto.Balance };
+            });
+
+            // Create a mock or a real instance of FileLogger
             var logger = Substitute.For<FileLogger>(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt"));
-            var cardService = new CardService(context, logger, mapper);
+            var cache = new MemoryCache(new MemoryCacheOptions());
 
-            var request = new Service.DTO.CreateCardRequest { CardNumber = "123456789012347", Balance = Convert.ToDecimal(1200.90) };
+            var cardService = new CardService(context, logger, mapper, cache);
 
+            var request = new Service.DTO.CreateCardRequest { CardNumber = "123", Balance = Convert.ToDecimal(1200.90) };
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => cardService.CreateCardAsync(request));

@@ -49,12 +49,15 @@ namespace RapidPay.API.Controllers
 
         [HttpPost("pay")]
         [Authorize(Policy = "RequireUserRole")]
-        public async Task<IActionResult> Pay([FromBody] PaymentRequest request)
+        public async Task<IActionResult> Pay([FromBody] DTO.PaymentRequest request)
         {
             try
             {
-                var result = await _cardService.PayAsync(request);
-                await _Logger.LogAsync($"Payment was succeeded registered.");
+                // Map the request DTO to the service DTO
+                var serviceRequest = _mapper.Map<Service.DTO.PaymentRequest>(request);
+
+                var result = await _cardService.PayAsync(serviceRequest);
+                await _Logger.LogAsync($"Payment ${result.Id} was succeeded registered.");
                 return Ok(result);
             }
             catch (Exception ex)
@@ -71,7 +74,7 @@ namespace RapidPay.API.Controllers
             try
             {
                 var balance = await _cardService.GetCardBalanceAsync(cardNumber);
-                return Ok(balance);
+                return Ok($"Balance for card {cardNumber} is :${balance}");
             }
             catch (Exception ex)
             {

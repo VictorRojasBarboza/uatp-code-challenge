@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using RapidPay.DAL;
 using RapidPay.DAL.Models;
 using RapidPay.Service.DTO;
 using RapidPay.Service.Helper;
 using RapidPay.Shared.Utils;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RapidPay.Service.Services.Card
 {
@@ -14,13 +14,15 @@ namespace RapidPay.Service.Services.Card
         private readonly ContextDB _context;
         private readonly FileLogger _Logger;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _cache;
 
 
-        public CardService(ContextDB context, FileLogger fileLogger, IMapper mapper)
+        public CardService(ContextDB context, FileLogger fileLogger, IMapper mapper, IMemoryCache cache)
         {
             _context = context;
             _Logger = fileLogger;
             _mapper = mapper;
+            _cache = cache;
         }
         public async Task<CreateCardResponse> CreateCardAsync(CreateCardRequest request)
         {
@@ -61,52 +63,69 @@ namespace RapidPay.Service.Services.Card
             return card.Balance;
         }
 
-        public async Task<string> PayAsync(PaymentRequest request)
+        public async Task<PaymentResponse> PayAsync(PaymentRequest request)
         {
-            //Thread implementation for database query
-            var cardTask = Task.Run(async () =>
-            {
-                return await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == request.CardNumber);
-            });
+            // Call the Initialize method first
+            UFE.Initialize(_cache, _Logger);
 
-            var card = await cardTask; 
-            
+            // Fetch the card details asynchronously
+            var card = await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == request.CardNumber);
+
             if (card == null)
             {
                 string error = "Card not found.";
                 await _Logger.LogAsync($"Payment process failed for: '{error}'.");
-                throw new Exception("Card not found.");
+                throw new ArgumentException("Card not found.");
             }
 
-            //Thread implementation to get Fee calculated value.
-            var feeTask = Task.Run(() => UFE.Instance.GetCurrentFee());
-            var fee = await feeTask;
-
+            // Get the current fee asynchronously
+            var fee = await Task.Run(() => UFE.Instance.GetCurrentFee());
             var totalAmount = request.Amount + request.Amount * fee;
 
-            //Thread implementation for balance and payment processes
-            var updateBalanceTask = Task.Run(() =>
+            // Ensure atomicity and integrity using a transaction
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                card.Balance -= totalAmount;
-            });
-
-            var paymentTask = Task.Run(() =>
-            {
-                var payment = new Payment
+                try
                 {
-                    CardId = card.Id,
-                    Amount = request.Amount,
-                    PaymentDate = DateTime.Now
-                };
+                    // Check if the balance is sufficient
+                    if (card.Balance < totalAmount)
+                    {
+                        string error = "Insufficient balance.";
+                        await _Logger.LogAsync($"Payment process failed for: '{error}'.");
+                        throw new Exception("Insufficient balance.");
+                    }
 
-                _context.Payments.Add(payment);
-            });
+                    // Deduct the amount from the balance
+                    card.Balance -= totalAmount;
 
-            //Ensures that all parallel tasks are completed before proceeding
-            await Task.WhenAll(updateBalanceTask, paymentTask);
-            await _context.SaveChangesAsync();
+                    // Create the payment record
+                    var payment = new Payment
+                    {
+                        CardId = card.Id,
+                        Amount = request.Amount,
+                        PaymentDate = DateTime.Now
+                    };
 
-            return "Payment successful.";
+                    _context.Payments.Add(payment);
+
+                    // Save the changes to the database
+                    await _context.SaveChangesAsync();
+
+                    // Commit the transaction
+                    await transaction.CommitAsync();
+
+                    // Map the payment to PaymentResponse
+                    var mappedPayment = _mapper.Map<PaymentResponse>(payment);
+                    return mappedPayment;
+                }
+                catch (Exception ex)
+                {
+                    // Rollback the transaction in case of an error
+                    await transaction.RollbackAsync();
+                    await _Logger.LogAsync($"Payment process failed for: '{ex.Message}'.");
+                    throw;
+                }
+            }
         }
     }
 }

@@ -103,7 +103,8 @@ namespace RapidPay.Service.Helper
         private void SetFeeInCache(decimal fee)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromHours(1)); // Set the fee to expire in 1 hour
+                //.SetAbsoluteExpiration(TimeSpan.FromHours(1)); // Set the fee to expire in 1 hour
+                .SetAbsoluteExpiration(TimeSpan.FromSeconds(20)); // Set the fee to expire in 1 hour
 
             _cache.Set(FeeCacheKey, fee, cacheEntryOptions);
             _logger?.LogAsync($"Set fee in cache: {fee}");
