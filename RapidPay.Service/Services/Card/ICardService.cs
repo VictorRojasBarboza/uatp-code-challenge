@@ -9,7 +9,7 @@ namespace RapidPay.Service.Services.Card
 {
     public interface ICardService
     {
-        Task<string> CreateCardAsync(string cardNumber);
+        Task<CreateCardResponse> CreateCardAsync(CreateCardRequest request);
         Task<string> PayAsync(PaymentRequest request);
         Task<decimal> GetCardBalanceAsync(string cardNumber);
     }

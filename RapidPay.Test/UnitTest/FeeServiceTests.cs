@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using RapidPay.Service.Helper;
+using RapidPay.Shared.Utils;
 using Xunit;
 
 namespace RapidPay.Test.UnitTest
@@ -11,10 +12,12 @@ namespace RapidPay.Test.UnitTest
         {
             // Arrange
             var cache = new MemoryCache(new MemoryCacheOptions());
+            var logger = new FileLogger("test.log");
 
-            // Initialize UFE with default constructor to set the initial fee
-            var initialFeeService = new UFE(null, true);
-
+            // Initialize UFE with cache and logger to set the initial fee
+            UFE.Initialize(cache, logger);
+            var initialFeeService = UFE.Instance;
+            
             // Act
             decimal initialFee = initialFeeService.GetCurrentFee();
 
@@ -25,10 +28,10 @@ namespace RapidPay.Test.UnitTest
             });
 
             // Wait for the cache to expire
-            System.Threading.Thread.Sleep(10);
+            Thread.Sleep(10);
 
-            // Initialize UFE with cache and without initializing the fee
-            var feeService = new UFE(cache, true);
+            // Initialize UFE again with the same cache, the fee should be recalculated
+            var feeService = UFE.Instance;
 
             decimal newFee = feeService.GetCurrentFee();
 
@@ -40,10 +43,15 @@ namespace RapidPay.Test.UnitTest
         public void GetCurrentFee_ShouldReturnSameFee_WhenCalledWithinAnHour()
         {
             // Arrange
+            var cache = new MemoryCache(new MemoryCacheOptions());
+            var logger = new FileLogger("test.log");
+
+            // Initialize UFE with cache and logger
+            UFE.Initialize(cache, logger);
             var feeService = UFE.Instance;
-            decimal initialFee = feeService.GetCurrentFee();
 
             // Act
+            decimal initialFee = feeService.GetCurrentFee();
             decimal feeWithinSameHour = feeService.GetCurrentFee();
 
             // Assert

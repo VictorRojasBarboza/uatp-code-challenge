@@ -2,7 +2,7 @@
 using RapidPay.Service.Services.Token;
 using RapidPay.Shared.Utils;
 
-namespace RapidPay.API
+namespace RapidPay.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {

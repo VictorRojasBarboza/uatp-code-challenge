@@ -12,3 +12,13 @@
 6/7/2024 5:33:05 PM: Payment was succeeded registered.
 6/7/2024 6:00:54 PM: Login succeeded for user admin.
 6/7/2024 6:02:35 PM: Login succeeded for user admin.
+6/12/2024 5:45:17 AM: Login failed for user admin: User or Password incorrect.
+6/12/2024 5:45:26 AM: Login succeeded for user admin.
+6/12/2024 5:55:04 AM: Login succeeded for user admin.
+6/12/2024 5:56:48 AM: Login succeeded for user admin.
+6/12/2024 6:01:42 AM: Login succeeded for user admin.
+6/12/2024 6:04:19 AM: Login failed for user 424242424242426: User or Password incorrect.
+6/12/2024 6:04:30 AM: Login succeeded for user admin.
+6/12/2024 6:07:05 AM: Login succeeded for user admin.
+6/12/2024 6:14:12 AM: Login succeeded for user admin.
+6/12/2024 6:15:14 AM: Card 424242424242428 created succeeded.

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RapidPay.Service.DTO;
@@ -13,19 +14,24 @@ namespace RapidPay.API.Controllers
     {
         private readonly ICardService _cardService;
         private readonly FileLogger _Logger;
-        public CardController(ICardService cardService, FileLogger fileLogger)
+        private readonly IMapper _mapper;
+        public CardController(ICardService cardService, FileLogger fileLogger, IMapper mapper)
         {
             _cardService = cardService;
             _Logger = fileLogger;
+            _mapper = mapper;
         }
 
         [HttpPost("create")]
         [Authorize(Policy = "RequireAdminRole")]
-        public async Task<IActionResult> CreateCard([FromBody] CreateCardRequest request)
+        public async Task<IActionResult> CreateCard([FromBody] DTO.CreateCardRequest request)
         {
             try
             {
-                var result = await _cardService.CreateCardAsync(request.CardNumber);
+                // Map the request DTO to the service DTO
+                var serviceRequest = _mapper.Map<Service.DTO.CreateCardRequest>(request);
+
+                var result = await _cardService.CreateCardAsync(serviceRequest);
                 await _Logger.LogAsync($"Card {request.CardNumber} created succeeded.");
                 return Ok(result);
             }

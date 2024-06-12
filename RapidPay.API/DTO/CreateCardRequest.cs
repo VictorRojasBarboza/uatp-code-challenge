@@ -1,4 +1,4 @@
-﻿namespace RapidPay.Service.DTO
+﻿namespace RapidPay.API.DTO
 {
     public class CreateCardRequest
     {

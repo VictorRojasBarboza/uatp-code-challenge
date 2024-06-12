@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using RapidPay.DAL;
+using RapidPay.Service.DTO;
 using RapidPay.Service.Services.Card;
 using RapidPay.Shared.Utils;
 using Xunit;
@@ -18,22 +22,22 @@ namespace RapidPay.Test.UnitTest
 
             using var context = new ContextDB(options);
 
-            // Create a mock or a real instance of FileLogger
-            var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "logs");
-            if (!Directory.Exists(logDirectory))
-            {
-                Directory.CreateDirectory(logDirectory);
-            }
-            var fileLogger = new FileLogger(Path.Combine(logDirectory, "logs.txt"));
+            // Create a mock or a real instance of Mapper
+            var mapper = Substitute.For<IMapper>();
 
-            var cardService = new CardService(context, fileLogger);
-            string validCardNumber = "123456789012345";
+            // Creating a substitute instance for FileLogger
+            var logger = Substitute.For<FileLogger>(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt")); 
 
+            var cardService = new CardService(context, logger, mapper);
+
+            var request = new Service.DTO.CreateCardRequest { CardNumber = "123456789012347", Balance = Convert.ToDecimal(1200.90) };
+           
             // Act
-            string result = await cardService.CreateCardAsync(validCardNumber);
+            CreateCardResponse result = await cardService.CreateCardAsync(request);
 
             // Assert
-            Assert.Equal("Card created successfully.", result);
+            Assert.NotNull(result);
+            Assert.Equal(request.CardNumber, result.CardNumber);
         }
 
         [Fact]
@@ -47,18 +51,15 @@ namespace RapidPay.Test.UnitTest
             using var context = new ContextDB(options);//Creating a context with InMemory DB
 
             // Create a mock or a real instance of FileLogger
-            var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "logs");
-            if (!Directory.Exists(logDirectory))
-            {
-                Directory.CreateDirectory(logDirectory);
-            }
-            var fileLogger = new FileLogger(Path.Combine(logDirectory, "logs.txt"));
+            var mapper = Substitute.For<IMapper>();
+            var logger = Substitute.For<FileLogger>(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt"));
+            var cardService = new CardService(context, logger, mapper);
 
-            var cardService = new CardService(context, fileLogger);
-            string invalidCardNumber = "1234567890"; // Less than 15 digits
+            var request = new Service.DTO.CreateCardRequest { CardNumber = "123456789012347", Balance = Convert.ToDecimal(1200.90) };
+
 
             // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => cardService.CreateCardAsync(invalidCardNumber));
+            await Assert.ThrowsAsync<ArgumentException>(() => cardService.CreateCardAsync(request));
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RapidPay.API;
+using RapidPay.API.Extensions;
 using RapidPay.DAL;
 using RapidPay.DAL.Models;
 using System.Text;
@@ -102,6 +102,9 @@ builder.Services.AddAuthorization(options =>
 
 // Register all scoped services using the static class method
 builder.Services.AddScopedServices();
+
+// Register AutoMapper profiles using the extension method
+builder.Services.AddCustomAutoMapper();
 
 // Register IMemoryCache
 builder.Services.AddMemoryCache();

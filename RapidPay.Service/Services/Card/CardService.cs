@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RapidPay.DAL;
 using RapidPay.DAL.Models;
 using RapidPay.Service.DTO;
@@ -12,15 +13,18 @@ namespace RapidPay.Service.Services.Card
     {
         private readonly ContextDB _context;
         private readonly FileLogger _Logger;
+        private readonly IMapper _mapper;
 
-        public CardService(ContextDB context, FileLogger fileLogger)
+
+        public CardService(ContextDB context, FileLogger fileLogger, IMapper mapper)
         {
             _context = context;
             _Logger = fileLogger;
+            _mapper = mapper;
         }
-        public async Task<string> CreateCardAsync(string cardNumber)
+        public async Task<CreateCardResponse> CreateCardAsync(CreateCardRequest request)
         {
-            if (cardNumber.Length != 15)
+            if (request.CardNumber.Length != 15)
             {
                 string error = "Card number must be 15 digits.";
                 await _Logger.LogAsync($"Card creation process failed for: '{error}'.");
@@ -28,7 +32,7 @@ namespace RapidPay.Service.Services.Card
             }
 
             // Check if the card number already exists
-            var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
+            var existingCard = await _context.Cards.FirstOrDefaultAsync(c => c.CardNumber == request.CardNumber);
             if (existingCard != null)
             {
                 string error = "Card number already exists.";
@@ -36,11 +40,12 @@ namespace RapidPay.Service.Services.Card
                 throw new ArgumentException(error);
             }
 
-            var card = new DAL.Models.Card { CardNumber = cardNumber, Balance = 0 };
+            DAL.Models.Card card = new DAL.Models.Card { CardNumber = request.CardNumber, Balance = request.Balance };
             _context.Cards.Add(card);
             await _context.SaveChangesAsync();
 
-            return "Card created successfully.";
+            CreateCardResponse mappedCard = _mapper.Map<CreateCardResponse>(card);
+            return mappedCard;
         }
 
         public async Task<decimal> GetCardBalanceAsync(string cardNumber)
