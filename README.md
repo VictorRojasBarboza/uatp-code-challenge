@@ -51,15 +51,26 @@
 
 **The solution is divided into 5 projects which have the following functionalities**
 
-	1. **RapidPay.API**: This directory contains the API project. The API project is responsible for exposing endpoints that can be consumed by clients (e.g., web, mobile apps). It acts as the entry point for the application, handling HTTP requests, routing, and returning responses.
-	2. **RapidPay.Service**: This directory contains the Service project. The Service layer handles the business logic of the application. It processes data received from the API and interacts with the Data Access Layer to perform CRUD and custom operations.
-	3. **RapidPay.DA**L: This directory contains the Data Access Layer (DAL) project. The DAL is responsible for interacting with the database. It includes the context and entities that represent the database schema and perform operations.
-	4. **RapidPay.Test**: This directory contains the test project. The Test project includes unit tests to ensure that the application functions correctly and meets the specified requirements.
-	5. **RapidPay.Shared**: This directory contains Shared functionalities that can be used for all other projects. It contains a file logger which creates a folder and file called "logs" to record errors or certain processes, this folder will be created at the root of API project.
+	1. RapidPay.API: This directory contains the API project. The API project is responsible for exposing endpoints that can be consumed by clients (e.g., web, mobile apps). It acts as the entry point for the application, handling HTTP requests, routing, and returning responses.
+	2. RapidPay.Service: This directory contains the Service project. The Service layer handles the business logic of the application. It processes data received from the API and interacts with the Data Access Layer to perform CRUD and custom operations.
+	3. RapidPay.DAL: This directory contains the Data Access Layer (DAL) project. The DAL is responsible for interacting with the database. It includes the context and entities that represent the database schema and perform operations.
+	4. RapidPay.Test: This directory contains the test project. The Test project includes unit tests to ensure that the application functions correctly and meets the specified requirements.
+	5. RapidPay.Shared: This directory contains Shared functionalities that can be used for all other projects. It contains a file logger which creates a folder and file called "logs" to record errors or certain processes, this folder will be created at the root of API project.
 
 This structure follows a common layered architecture pattern, which helps in separating concerns, improving code maintainability, and making it easier to test and manage different parts of the application independently. Including a dedicated test project also ensures that you can maintain high code quality and verify that changes do not introduce regressions.
 
 
 **Project Notes:**
 
-For the initial value in the fee calculation there is a hardcoded value of 0.5, which is found in RapidPay.Services/Helper/UFE.cs in a global variable at the beginning of the class
+	1. Universal Fees Exchange (UFE) :
+		a. For the initial value in the fee calculation there is a hardcoded initial value of 0.5, which is found in RapidPay.Services/Helper/UFE.cs in a global variable at the beginning of the class
+		b. In the same class in the "SetFeeInCache" method, you can find the cache expiration time configuration, by default it is set to 1 hour
+	
+	2. Logs Viewer:
+		a. To view the logs in a dynamic way, the following steps can be implemented:
+			i. Open a new one ending in the following path ./RapidPay.API/logs/
+			ii. Run following commands to display last 10 lines and wait for new lines to be added:
+				1. $file = "logs.txt" 
+				2. $path = Join-Path (Get-Location) $file
+				3. Get-Content $path -Tail 10 -Wait
+		

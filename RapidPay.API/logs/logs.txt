@@ -79,3 +79,7 @@ System.Threading.Tasks.Task -> RapidPay.Service.DTO.PaymentResponse.
 6/12/2024 5:32:13 PM: Calculated new fee: 0.960380017360427
 6/12/2024 5:32:19 PM: Payment $15 was succeeded registered.
 6/12/2024 5:34:37 PM: Login succeeded for user admin.
+6/14/2024 3:29:52 AM: Login succeeded for user admin.
+6/14/2024 3:30:45 AM: Set fee in cache: 0.5
+6/14/2024 3:30:45 AM: Initialized fee: 0.5
+6/14/2024 3:30:48 AM: Payment $16 was succeeded registered.

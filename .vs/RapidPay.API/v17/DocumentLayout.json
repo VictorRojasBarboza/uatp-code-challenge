@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A875F88A-6728-493B-86EA-C082770843A2}|RapidPay.API\\RapidPay.API.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.api\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A875F88A-6728-493B-86EA-C082770843A2}|RapidPay.API\\RapidPay.API.csproj|solutionrelative:rapidpay.api\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{296F59EE-22A7-4D18-BA2E-628C595EE943}|RapidPay.Test\\RapidPay.Test.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.test\\unittest\\cardservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{296F59EE-22A7-4D18-BA2E-628C595EE943}|RapidPay.Test\\RapidPay.Test.csproj|solutionrelative:rapidpay.test\\unittest\\cardservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.service\\helper\\ufe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|solutionrelative:rapidpay.service\\helper\\ufe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.service\\services\\card\\cardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|solutionrelative:rapidpay.service\\services\\card\\cardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.service\\helper\\ufe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4789DDC9-6180-45FB-B2D6-77FA097C3DBB}|RapidPay.Service\\RapidPay.Service.csproj|solutionrelative:rapidpay.service\\helper\\ufe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A875F88A-6728-493B-86EA-C082770843A2}|RapidPay.API\\RapidPay.API.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.api\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A875F88A-6728-493B-86EA-C082770843A2}|RapidPay.API\\RapidPay.API.csproj|solutionrelative:rapidpay.api\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{296F59EE-22A7-4D18-BA2E-628C595EE943}|RapidPay.Test\\RapidPay.Test.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.test\\unittest\\cardservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{296F59EE-22A7-4D18-BA2E-628C595EE943}|RapidPay.Test\\RapidPay.Test.csproj|solutionrelative:rapidpay.test\\unittest\\cardservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A875F88A-6728-493B-86EA-C082770843A2}|RapidPay.API\\RapidPay.API.csproj|c:\\users\\victor.rojas\\documents\\talentpool\\code challenges\\uatp\\rapidpay.api\\rapidpay.api\\mapping\\apimappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,20 +50,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "UFE.cs",
               "DocumentMoniker": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.Service\\Helper\\UFE.cs",
               "RelativeDocumentMoniker": "RapidPay.Service\\Helper\\UFE.cs",
               "ToolTip": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.Service\\Helper\\UFE.cs",
               "RelativeToolTip": "RapidPay.Service\\Helper\\UFE.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAhwGAAAAAIAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAlwBMAAAB8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T15:32:09.541Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CardServiceTests.cs",
               "DocumentMoniker": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.Test\\UnitTest\\CardServiceTests.cs",
               "RelativeDocumentMoniker": "RapidPay.Test\\UnitTest\\CardServiceTests.cs",
@@ -84,31 +84,30 @@
               "RelativeToolTip": "RapidPay.API\\Mapping\\ApiMappingProfile.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAADwvw8AAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T06:00:56.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-12T06:00:56.142Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CardController.cs",
               "DocumentMoniker": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.API\\Controllers\\CardController.cs",
               "RelativeDocumentMoniker": "RapidPay.API\\Controllers\\CardController.cs",
               "ToolTip": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.API\\Controllers\\CardController.cs",
               "RelativeToolTip": "RapidPay.API\\Controllers\\CardController.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAYwEgAAAAIAAAA",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAYwDQAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-05T03:52:10.354Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "CardService.cs",
               "DocumentMoniker": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.Service\\Services\\Card\\CardService.cs",
               "RelativeDocumentMoniker": "RapidPay.Service\\Services\\Card\\CardService.cs",
               "ToolTip": "C:\\Users\\victor.rojas\\Documents\\TalentPool\\Code challenges\\UATP\\RapidPay.API\\RapidPay.Service\\Services\\Card\\CardService.cs",
               "RelativeToolTip": "RapidPay.Service\\Services\\Card\\CardService.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAowFIAAAAMAAAA",
+              "ViewState": "AQIAADAAAAAAAAAAAAAawEIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-05T04:08:09.417Z",
               "EditorCaption": ""
