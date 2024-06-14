@@ -67,10 +67,14 @@ This structure follows a common layered architecture pattern, which helps in sep
 		b. In the same class in the "SetFeeInCache" method, you can find the cache expiration time configuration, by default it is set to 1 hour
 	
 	2. Logs Viewer:
-		a. To view the logs in a dynamic way, the following steps can be implemented:
-			i. Open a new one ending in the following path ./RapidPay.API/logs/
+		a. To view the logs in a dynamic way, the following steps can be implemented for Windows users:
+			i. Open a new terminal in the following path ./RapidPay.API/logs/
 			ii. Run following commands to display last 10 lines and wait for new lines to be added:
 				1. $file = "logs.txt" 
 				2. $path = Join-Path (Get-Location) $file
 				3. Get-Content $path -Tail 10 -Wait
+				
+		b. To view the logs in a dynamic way, the following steps can be implemented for Non-Windows users:
+			i. Open a new terminal in the following path ./RapidPay.API/logs/
+			ii. Run following command: tail -f -n 10 logs.txt 
 		
